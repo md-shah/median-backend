@@ -1,7 +1,5 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import * as request from 'supertest';
 import AppModule from "../src/app.module";
 

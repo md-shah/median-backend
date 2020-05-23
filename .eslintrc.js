@@ -34,12 +34,7 @@ module.exports = {
         'tsx': 'never',
       },
     ],
-    'import/no-extraneous-dependencies': ['error', {
-      'devDependencies': false,
-      'optionalDependencies': false,
-      'peerDependencies': false,
-      "packageDir": __dirname
-    }],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
