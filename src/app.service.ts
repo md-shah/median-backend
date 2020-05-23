@@ -5,9 +5,10 @@ export default class AppService {
   private readonly message: string;
 
   constructor() {
-  this.message = 'Hello World!';
+    this.message = 'Hello World!';
   }
 
   getHello(): string {
-    return this.message
-  }}
+    return this.message;
+  }
+}
