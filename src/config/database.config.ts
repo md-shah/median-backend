@@ -5,6 +5,7 @@ export default () => ({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   autoLoadModels: true,
-  logging: process.env.NODE_ENV === 'development',
+  // eslint-disable-next-line no-console
+  logging: process.env.NODE_ENV === 'development' ? console.log : false,
   synchronize: true,
 });
