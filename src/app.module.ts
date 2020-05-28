@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { Dialect } from 'sequelize';
 import { ConfigModule } from '@nestjs/config';
 import AppController from './app.controller';
 import AppService from './app.service';
@@ -12,7 +13,7 @@ import dbConfig from './config/database.config';
       envFilePath: `./src/environments/.${process.env.NODE_ENV}.env`,
     }),
     SequelizeModule.forRoot({
-      dialect: 'postgres',
+      dialect: 'postgres' as Dialect,
       ...dbConfig(),
     }),
   ],
