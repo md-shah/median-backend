@@ -4,8 +4,11 @@ module.exports = {
     project: 'tsconfig.json',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
+  plugins: [
+    '@typescript-eslint/eslint-plugin',
+    'prettier'],
   extends: [
+    'airbnb',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier',
@@ -16,7 +19,25 @@ module.exports = {
     node: true,
     jest: true,
   },
+  settings: {
+    'import/resolver': {
+      typescript: {},
+      node: {},
+    },
+  },
   rules: {
+    'prettier/prettier': 'error',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        'js': 'never',
+        'jsx': 'never',
+        'ts': 'never',
+        'tsx': 'never',
+      },
+    ],
+    'import/no-extraneous-dependencies': ['error', { 'devDependencies': true }],
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
