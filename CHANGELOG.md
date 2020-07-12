@@ -1,3 +1,10 @@
+# [1.0.0-develop.2](https://github.com/md-shah/blog-nestjs/compare/v1.0.0-develop.1...v1.0.0-develop.2) (2020-07-12)
+
+
+### Bug Fixes
+
+* **architecture:** add pre-push hook to run linter and jest ([f95798f](https://github.com/md-shah/blog-nestjs/commit/f95798fc25fa6e445b9c6fc905af17648fca1d4e))
+
 # 1.0.0-develop.1 (2020-07-11)
 
 
