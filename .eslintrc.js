@@ -23,6 +23,10 @@ module.exports = {
     'import/resolver': {
       typescript: {},
       node: {},
+      // This is a workaround to stop showing react linter warning
+      react: {
+        version: "999.999.999"
+      }
     },
   },
   rules: {

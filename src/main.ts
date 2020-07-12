@@ -1,11 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import AppModule from './app.module';
-import convertStringToSentenceCase from './helpers/convertToSentenceCase';
+import convertStringToSentenceCase from './shared/helpers/convertToSentenceCase';
 import { name, version, description } from '../package.json';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
 
   const options = new DocumentBuilder()
     .setTitle(convertStringToSentenceCase(name.replace('-', ' ')))
