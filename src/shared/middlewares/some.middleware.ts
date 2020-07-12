@@ -5,7 +5,7 @@ import { Request, Response } from 'express';
 export default class LoggerMiddleware implements NestMiddleware {
   // eslint-disable-next-line class-methods-use-this
   use(req: Request, res: Response, next: Function) {
-    console.log('Request...');
+    // console.log('Request...');
     next();
   }
 }
