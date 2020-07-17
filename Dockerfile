@@ -3,6 +3,9 @@ FROM node:14-alpine As development
 
 WORKDIR /usr/src/app
 
+RUN mkdir dist
+COPY dist dist
+
 COPY package*.json ./
 
 RUN npm install --only=development
