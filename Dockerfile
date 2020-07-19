@@ -1,16 +1,10 @@
-#  ______                     _                                        _
-#  |  _  \                   | |                                      | |
-#  | | | |  ___ __   __  ___ | |  ___   _ __   _ __ ___    ___  _ __  | |_
-#  | | | | / _ \\ \ / / / _ \| | / _ \ | '_ \ | '_ ` _ \  / _ \| '_ \ | __|
-#  | |/ / |  __/ \ V / |  __/| || (_) || |_) || | | | | ||  __/| | | || |_
-#  |___/   \___|  \_/   \___||_| \___/ | .__/ |_| |_| |_| \___||_| |_| \__|
-#                                      | |
-#                                      |_|
-FROM node:14-alpine As development
+#
+# BASE
+#
+FROM node:14-alpine As base
 
 # Set necessary environment variables.
-ENV NODE_ENV=development \
-    NPM_CONFIG_PREFIX=/home/node/.npm-global \
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global \
     PATH=$PATH:/home/node/.npm-global/bin:/home/node/node_modules/.bin:$PATH
 
 # For handling Kernel signals properly
@@ -18,6 +12,7 @@ RUN apk add --no-cache tini
 
 # Create the working directory, including the node_modules folder for the sake of assigning ownership in the next command
 RUN mkdir -p /usr/src/app/node_modules
+RUN mkdir -p /usr/src/app/dist
 
 # Change ownership of the working directory to the node:node user:group
 # This ensures that npm install can be executed successfully with the correct permissions
@@ -35,9 +30,20 @@ WORKDIR /usr/src/app
 # Copying this separately prevents re-running npm install on every code change.
 COPY --chown=node:node package*.json ./
 
-# Install dependencies.
+# Install Nest CLI.
 RUN npm i -g @nestjs/cli
-RUN npm ci --only=development
+
+#
+# DEVELOPMENT
+#
+FROM base As development
+
+ARG NODE_ENV="development"
+
+ENV NODE_ENV=${NODE_ENV}
+# Install dependencies.
+
+RUN npm ci
 
 # Necessary to run before adding application code to leverage Docker cache
 RUN npm cache clean --force
@@ -54,51 +60,39 @@ EXPOSE 3000
 
 ENTRYPOINT ["/sbin/tini", "--"]
 
-## Run the the Nest Build command
-#RUN npm run build
 # Run the web service on container startup
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "start:dev"]
 
-#  ______                   _               _    _
-#  | ___ \                 | |             | |  (_)
-#  | |_/ / _ __   ___    __| | _   _   ___ | |_  _   ___   _ __
-#  |  __/ | '__| / _ \  / _` || | | | / __|| __|| | / _ \ | '_ \
-#  | |    | |   | (_) || (_| || |_| || (__ | |_ | || (_) || | | |
-#  \_|    |_|    \___/  \__,_| \__,_| \___| \__||_| \___/ |_| |_|
 #
+# PRODUCTION
 #
-FROM node:14-alpine As production
+FROM base As production
 
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV} \
-    NPM_CONFIG_PREFIX=/home/node/.npm-global \
-    PATH=$PATH:/home/node/.npm-global/bin:/home/node/node_modules/.bin:$PATH
+ARG NODE_ENV="production"
 
-RUN apk add --no-cache tini
+ENV NODE_ENV=${NODE_ENV}
 
-RUN mkdir -p /usr/src/app/node_modules
-
-RUN chown -R node:node /usr/src/app
-
-USER node
-
-WORKDIR /usr/src/app
-
-COPY --chown=node:node package*.json ./
-
-RUN npm i -g @nestjs/cli
+# Install dependencies ( Without devDependencies )
 RUN npm ci --only=production
 
+# Necessary to run before adding application code to leverage Docker cache
 RUN npm cache clean --force
+#RUN mv node_modules ../
 
+# Bundle app source
 COPY --chown=node:node . ./
 
+# Display directory structure
 RUN ls -l
 
+# Expose API port
 EXPOSE 3000
+
 
 ENTRYPOINT ["/sbin/tini", "--"]
 
-COPY --from=development /usr/src/app/dist ./dist
+RUN npm run build
+# Display directory structure
+RUN ls -l
 
-CMD ["node", "dist/main"]
+CMD ["npm", "start"]
