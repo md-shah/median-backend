@@ -3,11 +3,13 @@
 
 This is Blog-Backend repository built on NestJS with a scalable architecture and almost all industry standards. I am developing this project as a reference/starter kit for further upcoming projects. Since the projects that I worked in my career life is some what not scalable or having issues in the longer run.
 
+---
+
 ### Getting started
 
 Build docker for the particular env and run container
 
-#### Development Environment:
+##### Development Environment:
 We are Application in Watch Mode with Debugger.
 
 ```sh
@@ -17,7 +19,7 @@ $ docker-compose --env-file ./src/server/environments/.development.env -f docker
 ( To run containers in the background: use "-d" in the above up command )
 ```
 
-#### Production Environment:
+##### Production Environment:
 After generating 'dist' build, We run the artifacts from dist folder.
 
 ```sh
@@ -27,7 +29,7 @@ $ docker-compose --env-file ./src/server/environments/.production.env -f docker-
 ( To run containers in the background: use "-d" in the above up command )
 ```
 
-#### Test Environment:
+##### Test Environment:
 Used to run tests including Linter check and Unit tests.
 
 ```sh
@@ -37,7 +39,7 @@ $ docker-compose --env-file ./src/server/environments/.test.env -f docker-compos
 ( No need to run test in background. Inside CI/CD pipelines, run the up command, 
 So we can see the build logs and status [passed or failed] )
 ```
-
+---
 
 ### Todo List - Features
 
@@ -58,6 +60,8 @@ So we can see the build logs and status [passed or failed] )
 
 - [ ] Convert this to a microservice based architecture 
 - [ ] Add to do here
+
+---
 
 ### Special thanks to,
 
