@@ -34,7 +34,7 @@ services:
       dockerfile: Dockerfile
       target: "test"
     env_file:
-      - ./src/server/environments/.development.env
+      - ./src/server/environments/.test.env
     user: "node"
     working_dir: /usr/src/app
     environment:

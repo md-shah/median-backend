@@ -1,6 +1,14 @@
-#
-# BASE
-#
+# Multi-stage docker build
+# I have splitted common into base and stage specific commands into seperate stages.
+# This contains devlopment, Testing, and Production stages.
+
+
+#+---------------------------+--+
+#|        BASE STAGE         |  |
+#+===========================+==+
+#| Contains common commands  |  |
+#+---------------------------+--+
+
 FROM node:14-alpine As base
 
 # Set necessary environment variables.
@@ -33,21 +41,23 @@ COPY --chown=node:node package*.json ./
 # Install Nest CLI.
 RUN npm i -g @nestjs/cli
 
-#
-# DEVELOPMENT
-#
+#+-----------------------------------------+--+
+#|            DEVELOPMENT STAGE            |  |
+#+=========================================+==+
+#| Contains development specific commands  |  |
+#+-----------------------------------------+--+
+
 FROM base As development
 
 ARG NODE_ENV="development"
 
 ENV NODE_ENV=${NODE_ENV}
-# Install dependencies.
 
+# Install dependencies.
 RUN npm ci
 
 # Necessary to run before adding application code to leverage Docker cache
 RUN npm cache clean --force
-#RUN mv node_modules ../
 
 # Bundle app source
 COPY --chown=node:node . ./
@@ -61,11 +71,15 @@ EXPOSE 3000
 ENTRYPOINT ["/sbin/tini", "--"]
 
 # Run the web service on container startup
+# "start:dev" is nestJS specif to start container in debug & watch mode
 CMD [ "npm", "run", "start:dev"]
 
-#
-# TEST
-#
+#+----------------------------------+--+
+#|            TEST STAGE            |  |
+#+==================================+==+
+#| Contains test specific commands  |  |
+#+----------------------------------+--+
+
 FROM base As test
 
 ARG NODE_ENV="test"
@@ -90,12 +104,15 @@ EXPOSE 3000
 
 ENTRYPOINT ["/sbin/tini", "--"]
 
-# run linter, setup and tests
+# run linter and unit tests
 CMD npm run lint && npm run test
 
-#
-# PRODUCTION
-#
+#+------------------------------+--+
+#|       PRODUCTION STAGE       |  |
+#+==============================+==+
+#| generate build and run dist  |  |
+#+------------------------------+--+
+
 FROM base As production
 
 ARG NODE_ENV="production"
@@ -105,24 +122,16 @@ ENV NODE_ENV=${NODE_ENV}
 # Install dependencies ( Without devDependencies )
 RUN npm ci --only=production
 
-# Necessary to run before adding application code to leverage Docker cache
 RUN npm cache clean --force
-#RUN mv node_modules ../
 
-# Bundle app source
 COPY --chown=node:node . ./
 
-# Display directory structure
-RUN ls -l
-
-# Expose API port
 EXPOSE 3000
-
 
 ENTRYPOINT ["/sbin/tini", "--"]
 
 RUN npm run build
-# Display directory structure
+
 RUN ls -l
 
 CMD ["npm", "start"]
