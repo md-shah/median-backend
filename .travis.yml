@@ -1,12 +1,38 @@
-language: generic
-sudo: required
-services:
-  - docker
-before_install:
-  - docker-compose build app-test
+# Reverting back to normal node_js pipeline, since docker-compose version supported by travis is 3.3 and
+# minimum requirement for multi stage target build needs a version of 3.4+. Once, Travis update the code, Revert this
+# back to the docker version.
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+    - "node_modules"
+install:
+  - npm install
 env:
   global:
     - NODE_ENV=test
 script:
-  - docker-compose up app-test
-  - docker run -e CI=true  blog-nestjs_app-test:latest npm run semantic-release || true
+  - npm install
+  - npm run lint
+  - npm run test
+  - npm run semantic-release || true
+
+# +----------------------------------------------------------------------------------------------+
+# |                                       Not legacy code                                        |
+# +----------------------------------------------------------------------------------------------+
+# | Use this code to revert back to Docker CI pipeline, when Travis supports docker-compose 3.4+ |
+# +----------------------------------------------------------------------------------------------+
+
+#language: generic
+#sudo: required
+#services:
+#  - docker
+#before_install:
+#  - docker-compose build app-test
+#env:
+#  global:
+#    - NODE_ENV=test
+#script:
+#  - docker-compose up app-test
+#  - docker run -e CI=true  blog-nestjs_app-test:latest npm run semantic-release || true
