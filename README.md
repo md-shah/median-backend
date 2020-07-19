@@ -7,7 +7,7 @@ This is Blog-Backend repository built on NestJS with a scalable architecture and
 
 Build docker for the particular env and run container
 
-####Development Environment:
+#### Development Environment:
 We are Application in Watch Mode with Debugger.
 
 ```sh
@@ -17,7 +17,7 @@ $ docker-compose --env-file ./src/server/environments/.development.env -f docker
 ( To run containers in the background: use "-d" in the above up command )
 ```
 
-####Production Environment:
+#### Production Environment:
 After generating 'dist' build, We run the artifacts from dist folder.
 
 ```sh
@@ -27,7 +27,7 @@ $ docker-compose --env-file ./src/server/environments/.production.env -f docker-
 ( To run containers in the background: use "-d" in the above up command )
 ```
 
-####Test Environment:
+#### Test Environment:
 Used to run tests including Linter check and Unit tests.
 
 ```sh
@@ -61,6 +61,6 @@ So we can see the build logs and status [passed or failed] )
 
 ### Special thanks to,
 
-* [Arjun M] - DevOps's Knight, Helped me with Docker!
+* [Arjun M] - DevOps Knight, Helped me with Docker!
 
    [Arjun M]: <https://www.linkedin.com/in/arjun-m-704a04104/>
