@@ -64,6 +64,36 @@ ENTRYPOINT ["/sbin/tini", "--"]
 CMD [ "npm", "run", "start:dev"]
 
 #
+# TEST
+#
+FROM base As test
+
+ARG NODE_ENV="test"
+
+ENV NODE_ENV=${NODE_ENV}
+# Install dependencies.
+
+RUN npm ci
+
+# Necessary to run before adding application code to leverage Docker cache
+RUN npm cache clean --force
+#RUN mv node_modules ../
+
+# Bundle app source
+COPY --chown=node:node . ./
+
+# Display directory structure
+RUN ls -l
+
+# Expose API port
+EXPOSE 3000
+
+ENTRYPOINT ["/sbin/tini", "--"]
+
+# run linter, setup and tests
+CMD npm run lint && npm run test
+
+#
 # PRODUCTION
 #
 FROM base As production

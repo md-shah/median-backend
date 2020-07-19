@@ -26,6 +26,29 @@ services:
     command: ["npm", "run", "start:dev"]
     networks:
       - webnet
+  # Service to run tests and lints. So removed DB connection
+  app-test:
+    container_name: blog-nestjs-test
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: "test"
+    env_file:
+      - ./src/server/environments/.development.env
+    user: "node"
+    working_dir: /usr/src/app
+    environment:
+      - NODE_ENV=test
+      - VERSION=1.0
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+      - 9229:9229
+    tty: true
+    networks:
+      - webnet
   app-prod:
     container_name: blog-nestjs-dev
     build:
