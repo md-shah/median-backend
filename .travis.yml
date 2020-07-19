@@ -3,10 +3,10 @@ sudo: required
 services:
   - docker
 before_install:
-  - docker-compose --env-file ./src/server/environments/.test.env -f docker-compose.yml build app-test
+  - docker-compose build app-test
 env:
   global:
     - NODE_ENV=test
 script:
-  - docker-compose --env-file ./src/server/environments/.test.env -f docker-compose.yml build app-test
+  - docker-compose up app-test
   - docker run -e CI=true  blog-nestjs_app-test:latest npm run semantic-release || true
