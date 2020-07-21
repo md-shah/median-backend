@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   app-dev:
-    container_name: blog-nestjs-dev
+    container_name: median-dev
     build:
       context: .
       dockerfile: Dockerfile
@@ -28,7 +28,7 @@ services:
       - webnet
   # Service to run tests and lints. So removed DB connection
   app-test:
-    container_name: blog-nestjs-test
+    container_name: median-test
     build:
       context: .
       dockerfile: Dockerfile
@@ -50,7 +50,7 @@ services:
     networks:
       - webnet
   app-prod:
-    container_name: blog-nestjs-dev
+    container_name: median-dev
     build:
       context: .
       dockerfile: Dockerfile
