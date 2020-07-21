@@ -35,4 +35,4 @@ script:
 #    - NODE_ENV=test
 #script:
 #  - docker-compose up app-test
-#  - docker run -e CI=true  blog-nestjs_app-test:latest npm run semantic-release || true
+#  - docker run -e CI=true  median_app-test:latest npm run semantic-release || true
