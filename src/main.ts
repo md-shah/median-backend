@@ -10,7 +10,7 @@ async function bootstrap() {
 
   const options = new DocumentBuilder()
     .setTitle(convertStringToSentenceCase(name.replace('-', ' ')))
-    .setDescription(description)
+    .setDescription(`${description}\nRunning on ${process.env.NODE_ENV} Mode`)
     .setVersion(version)
     .build();
   const document = SwaggerModule.createDocument(app, options);

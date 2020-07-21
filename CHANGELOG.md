@@ -1,3 +1,26 @@
+# [1.1.0-develop.1](https://github.com/md-shah/blog-nestjs/compare/v1.0.1...v1.1.0-develop.1) (2020-07-19)
+
+
+### Bug Fixes
+
+* **docker:** to ignore all files except src and dist ([18cecac](https://github.com/md-shah/blog-nestjs/commit/18cecac76de6c3927bb2c11d3240b26ad44e2be5))
+* **docker:** to ignore all secrets from production and staging ([12fcdf3](https://github.com/md-shah/blog-nestjs/commit/12fcdf333634d9aaf67ef4aec4f2633ac8f03cb9))
+* **docker:** travis ci not picking rimraf ([10a025c](https://github.com/md-shah/blog-nestjs/commit/10a025cc3102545d0a8be74d43259f31ea8de208))
+* **docker:** updated docker-compose and dockerfile ([4745ff2](https://github.com/md-shah/blog-nestjs/commit/4745ff22e8835042a31afc182297b6ccf4199645))
+* **docker:** updated dockerfile ([6e51880](https://github.com/md-shah/blog-nestjs/commit/6e518808e6e8cf2701cd06069f2ab5f7a554352d))
+* **docker:** updated dockerfile to create dist folder initally ([392e1ed](https://github.com/md-shah/blog-nestjs/commit/392e1edfd4ad8f18ad33035cbd5b54168b111c83))
+* **travis:** downgraded docker-compose version from 3.7 to 3.3 ([0d1c820](https://github.com/md-shah/blog-nestjs/commit/0d1c8209cd3ab0d23912c0c6f0bc9c3ab1aacb0e))
+* **travis:** moved env file to travis instead of loading from file ([2bc24a2](https://github.com/md-shah/blog-nestjs/commit/2bc24a2c843005a821791c3ea4bae77acb77a71a))
+* **travis:** reverted back to 3.8 since travis not supports 3.3+ ([0d5b976](https://github.com/md-shah/blog-nestjs/commit/0d5b9769769fc5258267a5ced92b441c3739047b))
+
+
+### Features
+
+* **docker:** add unit test build-stage to docker ([a2fc900](https://github.com/md-shah/blog-nestjs/commit/a2fc900ba25586306805042a6035648c60c78b5d))
+* **docker:** containarized backend ([7890e2f](https://github.com/md-shah/blog-nestjs/commit/7890e2fada7e92597052c17cdeedbb3e3a057e1e))
+* **docker:** updated config for travis CI ([87dafd1](https://github.com/md-shah/blog-nestjs/commit/87dafd16c189b6c4f880ada1e64b8d7e0e33b72a))
+* **docker:** updated travis CI to run with docker ([7c9b4f0](https://github.com/md-shah/blog-nestjs/commit/7c9b4f0a71da9b059ddb129a10e56c0e44878c10))
+
 ## [1.0.1](https://github.com/md-shah/blog-nestjs/compare/v1.0.0...v1.0.1) (2020-07-12)
 
 
