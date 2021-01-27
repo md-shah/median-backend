@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import User from '../../../models/user.model';
 
 @ApiTags('User')
 @Controller('/deprecated/v1/user')
