@@ -1,3 +1,16 @@
+# [1.1.0-develop.2](https://github.com/md-shah/blog-nestjs/compare/v1.1.0-develop.1...v1.1.0-develop.2) (2021-01-27)
+
+
+### Bug Fixes
+
+* unit testing code updated ([eb08f2a](https://github.com/md-shah/blog-nestjs/commit/eb08f2ad1155c6553e810c4b5b7412fdd4e9c697))
+* unit testing code updated ([03456e9](https://github.com/md-shah/blog-nestjs/commit/03456e9df198412b1327c07eed3e25c96cdc4597))
+
+
+### Features
+
+* **migration:** add ts file for migration document ([6019702](https://github.com/md-shah/blog-nestjs/commit/60197025ca34314bbdd7f65f58c581b8971cb058))
+
 # [1.1.0-develop.1](https://github.com/md-shah/blog-nestjs/compare/v1.0.1...v1.1.0-develop.1) (2020-07-19)
 
 
