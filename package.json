@@ -19,7 +19,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "db:migrate": "./node_modules/.bin/sequelize db:migrate"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",

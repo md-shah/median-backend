@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { DataTypes, QueryInterface } from 'sequelize';
 
 export = {
   up: (queryInterface: QueryInterface, Sequelize: typeof DataTypes) => {
-    return queryInterface.createTable('users', {
+    return queryInterface.createTable('money', {
       id: {
         type: Sequelize.UUID,
         primaryKey: true,
@@ -11,26 +10,28 @@ export = {
         allowNull: false,
         autoIncrement: false,
       },
-      password: {
-        type: Sequelize.STRING,
-      },
-      email: {
-        type: Sequelize.STRING,
+      type: {
+        type: Sequelize.ENUM,
+        values: ['expense', 'income'],
         allowNull: false,
-        unique: true,
       },
-      first_name: {
+      amount: {
+        type: Sequelize.DECIMAL(19, 4),
+        defaultValue: 0,
+      },
+      date: {
+        type: Sequelize.DATE,
+      },
+      note: {
         type: Sequelize.STRING,
       },
-      last_name: {
-        type: Sequelize.STRING,
-      },
-      is_active: {
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      is_deleted: {
         type: Sequelize.BOOLEAN,
       },
     });
   },
   down: (queryInterface: QueryInterface, Sequelize: typeof DataTypes) => {
-    return queryInterface.dropTable('users');
+    return queryInterface.dropTable('money');
   },
 };
