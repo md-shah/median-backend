@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 import * as dbConfig from '../config/database.config';
-import User from '../../models/user.model';
+import { User } from '../../models/user.model';
 
 const databaseProviders = [
   {

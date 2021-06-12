@@ -2,8 +2,10 @@ import { Column, Model, Table } from 'sequelize-typescript';
 
 @Table({
   timestamps: true,
+  modelName: 'users',
 })
-export default class User extends Model<User> {
+// eslint-disable-next-line import/prefer-default-export
+export class User extends Model {
   @Column({
     primaryKey: true,
     autoIncrement: true,
