@@ -16,7 +16,6 @@ export default class UserServiceV1 {
   async addUser(userDto: UserSignupDtoIn): Promise<UserSignupDtoOut | any> {
     this.userDto = userDto;
     return this.UserRepository.create({
-      // eslint-disable-next-line @typescript-eslint/camelcase
       id: uuidv4(),
       ...this.userDto,
     });

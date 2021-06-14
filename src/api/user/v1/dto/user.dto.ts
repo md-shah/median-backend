@@ -9,7 +9,7 @@ export class UserSignupDtoIn {
   @IsAlpha()
   last_name: string;
 
-  @IsEmail()
+  @IsEmail({}, { message: 'Please provide a valid email address' })
   email: string;
 
   @MinLength(5)
