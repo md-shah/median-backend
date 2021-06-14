@@ -6,12 +6,16 @@ import UserServiceV1 from './user.service';
 import { UserSignupDtoIn, UserSignupDtoOut } from './dto/user.dto';
 import { LocalStrategy } from '../../auth/local.strategy';
 import { LocalAuthGuard } from '../../auth/local.auth-guard';
+import { AuthService } from '../../auth/auth.service';
 
 @ApiTags('User')
 @Controller('/user/v1/')
 export default class UserControllerV1 {
   // eslint-disable-next-line no-useless-constructor
-  constructor(private userService: UserServiceV1) {}
+  constructor(
+    private userService: UserServiceV1,
+    private authService: AuthService,
+  ) {}
 
   private message: string;
 
@@ -23,9 +27,9 @@ export default class UserControllerV1 {
     return this.userService.addUser(userDetails);
   }
 
-  @UseGuards(AuthGuard('local'))
+  @UseGuards(LocalAuthGuard)
   @Post('auth/login')
   async login(@Request() req) {
-    return req.user;
+    return this.authService.login(req.user);
   }
 }
