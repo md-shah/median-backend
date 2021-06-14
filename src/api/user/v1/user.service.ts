@@ -11,13 +11,23 @@ export default class UserServiceV1 {
   constructor(
     @Inject('USER_REPOSITORY')
     private UserRepository: typeof User,
-  ) {}
+  ) {
+  }
 
   async addUser(userDto: UserSignupDtoIn): Promise<UserSignupDtoOut | any> {
     this.userDto = userDto;
     return this.UserRepository.create({
       id: uuidv4(),
       ...this.userDto,
+    });
+  }
+
+  async getUser(email: string): Promise<UserSignupDtoOut | any> {
+
+    return this.UserRepository.findOne({
+      where: {
+        email: email,
+      },
     });
   }
 }
