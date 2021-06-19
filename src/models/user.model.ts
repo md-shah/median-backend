@@ -1,10 +1,20 @@
 import { Column, Model, Table } from 'sequelize-typescript';
 
-@Table
-export default class User extends Model<User> {
+@Table({
+  timestamps: true,
+  modelName: 'users',
+})
+// eslint-disable-next-line import/prefer-default-export
+export class User extends Model {
   @Column({
+    allowNull: false,
     primaryKey: true,
     autoIncrement: true,
+    validate: {
+      notNull: {
+        msg: 'Please enter your name',
+      },
+    },
   })
   id: string;
 

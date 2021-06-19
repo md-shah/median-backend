@@ -1,14 +1,14 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags('User')
-@Controller('/v2/user')
-export default class UserControllerV2 {
+@ApiTags('Money')
+@Controller('/v1/money')
+export default class UserControllerV1 {
   private message: string;
 
   @Get()
   findAll(): string {
-    this.message = 'User v2 invoked';
+    this.message = 'User v1 invoked';
     return this.message;
   }
 }

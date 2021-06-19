@@ -1,15 +1,43 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, Request, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import User from '../../../models/user.model';
+import { AuthGuard } from '@nestjs/passport';
+import { User } from '../../../models/user.model';
+import UserServiceV1 from './user.service';
+import { UserSignupDtoIn, UserSignupDtoOut } from './dto/user.dto';
+import { LocalStrategy } from '../../auth/local.strategy';
+import { LocalAuthGuard } from '../../auth/local.auth-guard';
+import { AuthService } from '../../auth/auth.service';
+import { JwtAuthGuard } from '../../auth/jwt.auth-guard';
 
 @ApiTags('User')
-@Controller('/deprecated/v1/user')
+@Controller('/user/v1/')
 export default class UserControllerV1 {
+  // eslint-disable-next-line no-useless-constructor
+  constructor(
+    private userService: UserServiceV1,
+    private authService: AuthService,
+  ) {}
+
   private message: string;
 
-  @Get()
-  findAll(): string {
-    this.message = 'User v1 invoked';
-    return this.message;
+  @Post('/signup')
+  async signup(
+    @Body() userDetails: UserSignupDtoIn,
+  ): Promise<UserSignupDtoOut> {
+    // eslint-disable-next-line no-return-await
+    return this.userService.addUser(userDetails);
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @Post('auth/login')
+  async login(@Request() req) {
+    return this.authService.login(req.user);
+  }
+
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/profile')
+  getProfile(@Request() req) {
+    return req.user;
   }
 }

@@ -2,7 +2,7 @@
 // When an exception is not handled by your application code, it is caught by this layer, which then automatically sends an appropriate
 // user-friendly response.
 
-// http-exception.filter.ts from nestJS Docs
+// all-exception.filter.ts from nestJS Docs
 import {
   ExceptionFilter,
   Catch,
