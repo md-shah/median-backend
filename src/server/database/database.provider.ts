@@ -1,27 +1,17 @@
-import { Sequelize } from 'sequelize-typescript';
-import { Pool } from 'pg';
-import * as dbConfig from '../config/database.config';
-import postgresConfig from '../config/postgres.config';
-import { User } from '../../models/user.model';
+import { ConfigService } from '@nestjs/config';
+import databasePoolFactory from '../config/postgres.config';
+import sequelizeFactory from '../config/database.config';
 
 const databaseProviders = [
   {
     provide: 'DATABASE_CONNECTION',
-    useFactory: async () => {
-      const sequelize = new Sequelize(dbConfig);
-      await sequelize.authenticate();
-      sequelize.addModels([User]);
-      return sequelize;
-    },
+    inject: [ConfigService],
+    useFactory: sequelizeFactory,
   },
   {
     provide: 'POSTGRES_CONNECTION',
-    useFactory: async () => {
-      console.log(postgresConfig);
-      const postgresConn = new Pool(postgresConfig);
-      await postgresConn.query('SELECT NOW()');
-      return postgresConn;
-    },
+    inject: [ConfigService],
+    useFactory: databasePoolFactory,
   },
 ];
 
