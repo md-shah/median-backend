@@ -1,5 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
+import { Pool } from 'pg';
 import * as dbConfig from '../config/database.config';
+import postgresConfig from '../config/postgres.config';
 import { User } from '../../models/user.model';
 
 const databaseProviders = [
@@ -10,6 +12,15 @@ const databaseProviders = [
       await sequelize.authenticate();
       sequelize.addModels([User]);
       return sequelize;
+    },
+  },
+  {
+    provide: 'POSTGRES_CONNECTION',
+    useFactory: async () => {
+      console.log(postgresConfig);
+      const postgresConn = new Pool(postgresConfig);
+      await postgresConn.query('SELECT NOW()');
+      return postgresConn;
     },
   },
 ];

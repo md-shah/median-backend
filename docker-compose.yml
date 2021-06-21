@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
       target: "development"
     env_file:
-      - ./src/server/environments/.development.env
+      - environments/.development.env
     depends_on:
       - postgres
     user: "node"
@@ -34,7 +34,7 @@ services:
       dockerfile: Dockerfile
       target: "test"
     env_file:
-      - ./src/server/environments/.test.env
+      - environments/.test.env
     user: "node"
     working_dir: /usr/src/app
     environment:
@@ -56,7 +56,7 @@ services:
       dockerfile: Dockerfile
       target: "production"
     env_file:
-      - ./src/server/environments/.production.env
+      - environments/.production.env
     depends_on:
       - postgres
     user: "node"
